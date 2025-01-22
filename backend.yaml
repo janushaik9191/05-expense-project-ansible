@@ -3,10 +3,10 @@
   become: yes
   vars: 
     mysql_root_password: ExpenseApp1
-    login_host: backend.meerjan.online
+    login_host: mysql.meerjan.online
   tasks:
   - name: disabling the default nodejs
-    ansible.builtin.command: dnf module disable nodejs:18
+    ansible.builtin.command: dnf module disable nodejs
 
   - name: enabling the nodejs 20
     ansible.builtin.command: dnf module enable nodejs:20
@@ -29,3 +29,27 @@
     ansible.builtin.get_url:
       url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
       dest: /tmp/backend.zip
+
+  - name: extract the downloaded code
+    ansible.builtin.unarchive:
+      src: /tmp/backend.zip
+      dest: /app
+      remote_src: yes
+  
+  - name: install dependencies
+    ansible.builtin.command: npm install
+      chdir: /app
+
+  - name: copy backend service
+    ansible.builtin.copy:
+      src: backend.service
+      dest: /etc/systemd/system/backend.service
+
+  - name: import mysql data
+    community.mysql.mysql_db:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      login_host: "{{ login_host }}"
+      target: /app/schema/backend.sql
+      name: all
+      state: import

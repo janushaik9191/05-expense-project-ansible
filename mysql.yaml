@@ -1,5 +1,6 @@
 - name: configuration of mysql server
   hosts: mysql
+  become: yes
   vars:
     mysql_root_password: ExpenseApp1
     login_host: mysql.meerjan.online

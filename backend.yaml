@@ -6,10 +6,10 @@
     login_host: backend.meerjan.online
   tasks:
   - name: disabling the default nodejs
-    ansible.bultin.command: dnf disable nodejs:18
+    ansible.bultin.command: dnf module disable nodejs:18
 
   - name: enabling the nodejs 20
-    ansible.builtin.command: dnf enable nodejs:20
+    ansible.builtin.command: dnf module enable nodejs:20
 
   - name: install the nodejs 20
     ansible.builtin.package:
@@ -17,7 +17,8 @@
       state: present
     
   - name: creating expense user
-    ansible.builtin.command: useradd expense
+    ansible.builtin.user:
+      name: expense
 
   - name: creating an app directory
     ansible.builtin.file:

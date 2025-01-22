@@ -13,8 +13,11 @@
 
   - name: install the nodejs 20
     ansible.builtin.package:
-      name: nodejs
+      name: "{{ item }}"
       state: present
+      loop:
+      - mysql
+      - PyMySQL
     
   - name: creating expense user
     ansible.builtin.user:

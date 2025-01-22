@@ -7,11 +7,9 @@
   tasks:
   - name: disabling the default nodejs
     ansible.bultin.command: dnf disable nodejs:18
-      msg: "default nodejs is disabled"
 
   - name: enabling the nodejs 20
     ansible.builtin.command: dnf enable nodejs:20
-      msg: "nodejs 20 is enabled"
 
   - name: install the nodejs 20
     ansible.builtin.package:

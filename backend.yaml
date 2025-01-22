@@ -11,7 +11,7 @@
   - name: enable default nodejs
     ansible.builtin.command: dnf module enable nodejs:20 -y
 
-  - name: install the nodejs 20
+  - name: install the nodejs 20 and mysql
     ansible.builtin.package:
       name: "{{ item }}"
       state: present
@@ -19,7 +19,7 @@
     - mysql
     - nodejs
   
-  - name: ansible to install pymysql and cryptography
+  - name: ansible to install PyMySQL and cryptography
     ansible.builtin.pip:
       name:
       - PyMySQL
@@ -64,3 +64,9 @@
       target: /app/schema/backend.sql
       name: all
       state: import
+  
+  - name: daemon reload
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      state: restarted
+      name: backend

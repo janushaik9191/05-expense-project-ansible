@@ -5,11 +5,11 @@
     mysql_root_password: ExpenseApp1
     login_host: mysql.meerjan.online
   tasks:
-  - name: disabling the default nodejs
-    ansible.builtin.command: dnf module disable nodejs
+  - name: disable default nodejs
+    ansible.builtin.command: dnf module disable nodejs -y
 
-  - name: enabling the nodejs 20
-    ansible.builtin.command: dnf module enable nodejs:20
+  - name: enable default nodejs
+    ansible.builtin.command: dnf module enable nodejs:20 -y
 
   - name: install the nodejs 20
     ansible.builtin.package:

@@ -6,11 +6,11 @@
     login_host: mysql.meerjan.online
   tasks:
   - name: install mysql server
-    ansible.builtin.debug:
+    ansible.builtin.package:
       name: mysql-server
       state: present
   - name: start and enabling mysql
-    ansible.builtin.ansible:
+    ansible.builtin.service:
       name: mysqld
       state: started
       enabled: yes

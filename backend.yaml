@@ -17,8 +17,15 @@
       state: present
     loop:
     - mysql
-    - PyMySQL
-    
+    - nodejs
+  
+  - name: ansible to install pymysql and cryptography
+    ansible.builtin.pip:
+      name:
+      - PyMySQL
+      - cryptography
+      executable: pip3.9
+
   - name: creating expense user
     ansible.builtin.user:
       name: expense

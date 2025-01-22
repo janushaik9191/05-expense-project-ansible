@@ -6,7 +6,7 @@
     login_host: backend.meerjan.online
   tasks:
   - name: disabling the default nodejs
-    ansible.bultin.command: dnf module disable nodejs:18
+    ansible.builtin.command: dnf module disable nodejs:18
 
   - name: enabling the nodejs 20
     ansible.builtin.command: dnf module enable nodejs:20
